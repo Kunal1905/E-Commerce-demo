@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
+
+body{
+    font-family: "poppins";
+}
+*{
+    margin: 0;
+}
