@@ -19,4 +19,4 @@ const RelatedProducts = () => {
   )
 }
 
-export default RealtedProducts
+export default RelatedProducts
