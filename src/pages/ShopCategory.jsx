@@ -34,7 +34,7 @@ const ShopCategory = (props) => {
       </div>
 
       {/* Products Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 mb-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-12">
         {all_product.map((item, i) =>
           props.category === item.category ? (
             <Item
