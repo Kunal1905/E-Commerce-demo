@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import star_icon from "../../Assets/Frontend_Assets/star_icon.png";
 import star_dull_icon from "../../Assets/Frontend_Assets/star_dull_icon.png";
 import { ShopContext } from "../../components/Context/ShopContext"
@@ -6,6 +6,21 @@ import { ShopContext } from "../../components/Context/ShopContext"
 const ProductDisplay = (props) => {
   const { product } = props;
   const {addToCart} = useContext(ShopContext)
+  const [selectedSize, setSelectedSize] = useState("M"); // Default size
+  const [sizeError, setSizeError] = useState(false);
+
+  const sizes = ["S", "M", "L", "XL", "XXL"];
+
+  const handleAddToCart = () => {
+    if (!selectedSize) {
+      setSizeError(true);
+      return;
+    }
+    setSizeError(false);
+    addToCart(product.id, selectedSize);
+    // Optional: Show success message
+    alert(`Added ${product.name} (Size: ${selectedSize}) to cart!`);
+  }
 
   if (!product) {
     return <div className="flex justify-center items-center min-h-96">
@@ -78,18 +93,35 @@ const ProductDisplay = (props) => {
           {/* Size Selection */}
           <div>
             <h3 className="text-lg font-semibold mb-3">Select Size</h3>
+            {sizeError && (
+              <p className="text-red-500 text-sm mb-2">Please select a size</p>
+            )}
             <div className="flex gap-3">
-              <button className="w-12 h-12 border border-gray-300 rounded hover:border-red-500 hover:text-red-500 transition-colors">S</button>
-              <button className="w-12 h-12 border border-gray-300 rounded hover:border-red-500 hover:text-red-500 transition-colors">M</button>
-              <button className="w-12 h-12 border border-gray-300 rounded hover:border-red-500 hover:text-red-500 transition-colors">L</button>
-              <button className="w-12 h-12 border border-gray-300 rounded hover:border-red-500 hover:text-red-500 transition-colors">XL</button>
-              <button className="w-12 h-12 border border-gray-300 rounded hover:border-red-500 hover:text-red-500 transition-colors">XXL</button>
+              {sizes.map(size => (
+                <button
+                  key={size}
+                  onClick={() => {
+                    setSelectedSize(size);
+                    setSizeError(false);
+                  }}
+                  className={`w-12 h-12 border rounded transition-colors ${
+                    selectedSize === size
+                      ? 'border-red-500 bg-red-500 text-white'
+                      : 'border-gray-300 hover:border-red-500 hover:text-red-500'
+                  }`}
+                >
+                  {size}
+                </button>
+              ))}
             </div>
+            {selectedSize && (
+              <p className="text-sm text-gray-600 mt-2">Selected: {selectedSize}</p>
+            )}
           </div>
 
           {/* Add to Cart Button */}
           <button
-            onClick={() => {addToCart(product.id)}}
+            onClick={handleAddToCart}
             className="w-full md:w-auto bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-lg font-medium text-lg transition-colors"
           >
             ADD TO CART
