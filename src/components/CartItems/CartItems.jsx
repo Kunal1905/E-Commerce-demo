@@ -18,6 +18,14 @@ const CartItems = () => {
           <p>Remove</p>
         </div>
 
+        {/* Empty cart message for desktop */}
+        {Object.keys(cartItems).length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-gray-500 text-lg">Your cart is empty</p>
+            <p className="text-gray-400 text-sm mt-2">Add some products to get started!</p>
+          </div>
+        )}
+
         {/* Desktop Table Items */}
         {Object.entries(cartItems).map(([cartKey, cartItem]) => {
           const product = all_product.find(p => p.id === cartItem.productId);
