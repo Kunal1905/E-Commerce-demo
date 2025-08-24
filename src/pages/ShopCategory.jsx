@@ -17,7 +17,9 @@ const ShopCategory = (props) => {
     <div className="px-4 md:px-8 py-6">
       {/* Banner */}
       <div className="mb-8">
-        <img src={props.banner} alt={`${props.category} category banner`} className="w-full h-48 md:h-64 lg:h-80 object-cover rounded-lg" />
+        <div className="w-full h-48 md:h-64 lg:h-80 bg-gray-100 rounded-lg overflow-hidden">
+          <img src={props.banner} alt={`${props.category} category banner`} className="w-full h-full object-contain" />
+        </div>
       </div>
 
       {/* Sort and Filter */}
