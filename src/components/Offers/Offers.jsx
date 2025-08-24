@@ -11,7 +11,9 @@ const Offers = () => {
             <button className="bg-red-500 hover:bg-red-600 text-white px-8 md:px-10 py-3 md:py-4 rounded-full text-lg md:text-xl font-medium transition-colors cursor-pointer">Check Now</button>
         </div>
         <div className="flex-1 flex justify-center lg:justify-end">
-            <img src={exclusive_image} alt="exclusive offers" className="w-full max-w-md lg:max-w-lg object-contain" />
+            <div className="w-full max-w-md lg:max-w-lg">
+                <img src={exclusive_image} alt="exclusive offers" className="w-full h-auto object-contain" />
+            </div>
         </div>
     </section>
   )
