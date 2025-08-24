@@ -8,7 +8,7 @@ function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <nav className='flex justify-between items-center px-4 md:px-8 py-4 shadow-md bg-white'>
+    <nav className='relative flex justify-between items-center px-4 md:px-8 py-4 shadow-md bg-white'>
       {/* Logo */}
       <div className="flex items-center gap-2">
         <img src={logo} alt="logo" className="w-8 h-8" />
@@ -46,44 +46,44 @@ function Navbar() {
         </Link>
       </div>
 
-      {/* Mobile Menu Button */}
-      <button
-        className="md:hidden flex flex-col gap-1 p-2"
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-      >
-        <span className={`w-6 h-0.5 bg-gray-600 transition-transform ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-        <span className={`w-6 h-0.5 bg-gray-600 transition-opacity ${isMenuOpen ? 'opacity-0' : ''}`}></span>
-        <span className={`w-6 h-0.5 bg-gray-600 transition-transform ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
-      </button>
+      {/* Mobile Cart & Menu */}
+      <div className="md:hidden flex items-center gap-4">
+        <Link to="/cart" className="relative">
+          <img src={cart_icon} alt="cart" className="w-6 h-6" />
+          <div className='absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center'>0</div>
+        </Link>
+        <button
+          className="flex flex-col gap-1 p-2"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          <span className={`w-6 h-0.5 bg-gray-600 transition-transform duration-300 ${isMenuOpen ? 'rotate-45 translate-y-1.5' : ''}`}></span>
+          <span className={`w-6 h-0.5 bg-gray-600 transition-opacity duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></span>
+          <span className={`w-6 h-0.5 bg-gray-600 transition-transform duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></span>
+        </button>
+      </div>
 
       {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="absolute top-full left-0 right-0 bg-white shadow-lg md:hidden z-50">
-          <ul className="flex flex-col py-4">
-            <li onClick={() => {setMenu("shop"); setIsMenuOpen(false);}} className="px-6 py-3 border-b">
-              <Link to="/" className="text-gray-600 hover:text-gray-800">Shop</Link>
-            </li>
-            <li onClick={() => {setMenu("mens"); setIsMenuOpen(false);}} className="px-6 py-3 border-b">
-              <Link to="/mens" className="text-gray-600 hover:text-gray-800">Mens</Link>
-            </li>
-            <li onClick={() => {setMenu("womens"); setIsMenuOpen(false);}} className="px-6 py-3 border-b">
-              <Link to="/women" className="text-gray-600 hover:text-gray-800">Womens</Link>
-            </li>
-            <li onClick={() => {setMenu("kids"); setIsMenuOpen(false);}} className="px-6 py-3 border-b">
-              <Link to="/kids" className="text-gray-600 hover:text-gray-800">Kids</Link>
-            </li>
-            <li className="px-6 py-3 flex items-center justify-between">
-              <Link to="/login">
-                <button className="px-4 py-2 border border-gray-400 rounded-full text-gray-600">Login</button>
-              </Link>
-              <Link to="/cart" className="relative">
-                <img src={cart_icon} alt="cart" className="w-6 h-6" />
-                <div className='absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center'>0</div>
-              </Link>
-            </li>
-          </ul>
-        </div>
-      )}
+      <div className={`absolute top-full left-0 right-0 bg-white shadow-lg md:hidden z-50 transition-all duration-300 ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+        <ul className="flex flex-col py-4">
+          <li onClick={() => {setMenu("shop"); setIsMenuOpen(false);}} className="px-6 py-3 border-b hover:bg-gray-50">
+            <Link to="/" className="block text-gray-600 hover:text-gray-800">Shop</Link>
+          </li>
+          <li onClick={() => {setMenu("mens"); setIsMenuOpen(false);}} className="px-6 py-3 border-b hover:bg-gray-50">
+            <Link to="/mens" className="block text-gray-600 hover:text-gray-800">Mens</Link>
+          </li>
+          <li onClick={() => {setMenu("womens"); setIsMenuOpen(false);}} className="px-6 py-3 border-b hover:bg-gray-50">
+            <Link to="/women" className="block text-gray-600 hover:text-gray-800">Womens</Link>
+          </li>
+          <li onClick={() => {setMenu("kids"); setIsMenuOpen(false);}} className="px-6 py-3 border-b hover:bg-gray-50">
+            <Link to="/kids" className="block text-gray-600 hover:text-gray-800">Kids</Link>
+          </li>
+          <li className="px-6 py-3 hover:bg-gray-50">
+            <Link to="/login" onClick={() => setIsMenuOpen(false)}>
+              <button className="w-full px-4 py-2 border border-gray-400 rounded-full text-gray-600">Login</button>
+            </Link>
+          </li>
+        </ul>
+      </div>
     </nav>
   )
 }
