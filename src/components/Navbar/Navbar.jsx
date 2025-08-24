@@ -1,11 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import logo from "../../Assets/Frontend_Assets/logo.png"
 import cart_icon from "../../Assets/Frontend_Assets/cart_icon.png"
 import { Link } from "react-router-dom"
+import { ShopContext } from "../Context/ShopContext"
 
 function Navbar() {
   const [menu, setMenu] = useState("shop")
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const { cartItems } = useContext(ShopContext)
+
+  // Calculate total items in cart
+  const getTotalCartItems = () => {
+    return Object.values(cartItems).reduce((total, item) => total + item.quantity, 0)
+  }
 
   return (
     <nav className='relative flex justify-between items-center px-4 md:px-8 py-4 shadow-md bg-white'>
