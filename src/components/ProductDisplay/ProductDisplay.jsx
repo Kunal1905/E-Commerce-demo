@@ -21,15 +21,25 @@ const ProductDisplay = (props) => {
           <div className="flex flex-col-reverse md:flex-row gap-4">
             {/* Thumbnail Images */}
             <div className="flex md:flex-col gap-2 overflow-x-auto md:overflow-visible">
-              <img src={product.image} alt="thumbnail" className="w-16 h-16 md:w-20 md:h-20 object-cover rounded border cursor-pointer hover:border-gray-400 flex-shrink-0" />
-              <img src={product.image} alt="thumbnail" className="w-16 h-16 md:w-20 md:h-20 object-cover rounded border cursor-pointer hover:border-gray-400 flex-shrink-0" />
-              <img src={product.image} alt="thumbnail" className="w-16 h-16 md:w-20 md:h-20 object-cover rounded border cursor-pointer hover:border-gray-400 flex-shrink-0" />
-              <img src={product.image} alt="thumbnail" className="w-16 h-16 md:w-20 md:h-20 object-cover rounded border cursor-pointer hover:border-gray-400 flex-shrink-0" />
+              <div className="w-16 h-16 md:w-20 md:h-20 bg-gray-100 rounded border cursor-pointer hover:border-gray-400 flex-shrink-0 overflow-hidden">
+                <img src={product.image} alt="thumbnail" className="w-full h-full object-contain" />
+              </div>
+              <div className="w-16 h-16 md:w-20 md:h-20 bg-gray-100 rounded border cursor-pointer hover:border-gray-400 flex-shrink-0 overflow-hidden">
+                <img src={product.image} alt="thumbnail" className="w-full h-full object-contain" />
+              </div>
+              <div className="w-16 h-16 md:w-20 md:h-20 bg-gray-100 rounded border cursor-pointer hover:border-gray-400 flex-shrink-0 overflow-hidden">
+                <img src={product.image} alt="thumbnail" className="w-full h-full object-contain" />
+              </div>
+              <div className="w-16 h-16 md:w-20 md:h-20 bg-gray-100 rounded border cursor-pointer hover:border-gray-400 flex-shrink-0 overflow-hidden">
+                <img src={product.image} alt="thumbnail" className="w-full h-full object-contain" />
+              </div>
             </div>
 
             {/* Main Image */}
             <div className="flex-1">
-              <img src={product.image} alt={product.name} className="w-full h-80 md:h-96 lg:h-[500px] object-cover rounded-lg" />
+              <div className="w-full h-80 md:h-96 lg:h-[500px] bg-gray-100 rounded-lg overflow-hidden">
+                <img src={product.image} alt={product.name} className="w-full h-full object-contain" />
+              </div>
             </div>
           </div>
         </div>
