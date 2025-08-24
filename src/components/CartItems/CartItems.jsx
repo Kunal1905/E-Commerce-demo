@@ -19,93 +19,102 @@ const CartItems = () => {
         </div>
 
         {/* Desktop Table Items */}
-        {all_product.map((e) => {
-          if (cartItems[e.id] > 0) {
-            return (
-              <div key={e.id} className="grid grid-cols-6 gap-4 py-4 px-2 items-center border-b">
-                <div className="w-16 h-16 bg-gray-100 rounded overflow-hidden">
-                  <img src={e.image} alt={e.name} className="w-full h-full object-contain" />
-                </div>
-                <p className="font-medium">{e.name}</p>
-                <p className="text-gray-600">${e.new_price}</p>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => removeFromCart(e.id)}
-                    className="w-8 h-8 border border-gray-300 rounded hover:bg-gray-100 flex items-center justify-center text-lg font-bold"
-                  >
-                    -
-                  </button>
-                  <span className="w-12 h-8 border border-gray-300 rounded bg-white flex items-center justify-center">{cartItems[e.id]}</span>
-                  <button
-                    onClick={() => addToCart(e.id)}
-                    className="w-8 h-8 border border-gray-300 rounded hover:bg-gray-100 flex items-center justify-center text-lg font-bold"
-                  >
-                    +
-                  </button>
-                </div>
-                <p className="font-semibold">${e.new_price*cartItems[e.id]}</p>
-                <img
-                  src={remove_icon}
-                  onClick={() => deleteFromCart(e.id)}
-                  alt="remove"
-                  className="w-4 h-4 cursor-pointer hover:opacity-70"
-                />
+        {Object.entries(cartItems).map(([cartKey, cartItem]) => {
+          const product = all_product.find(p => p.id === cartItem.productId);
+          if (!product) return null;
+
+          return (
+            <div key={cartKey} className="grid grid-cols-6 gap-4 py-4 px-2 items-center border-b">
+              <div className="w-16 h-16 bg-gray-100 rounded overflow-hidden">
+                <img src={product.image} alt={product.name} className="w-full h-full object-contain" />
               </div>
-            );
-          }
-          return null;
+              <div>
+                <p className="font-medium">{product.name}</p>
+                <p className="text-sm text-gray-500">Size: {cartItem.size}</p>
+              </div>
+              <p className="text-gray-600">${product.new_price}</p>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => removeFromCart(cartKey)}
+                  className="w-8 h-8 border border-gray-300 rounded hover:bg-gray-100 flex items-center justify-center text-lg font-bold"
+                >
+                  -
+                </button>
+                <span className="w-12 h-8 border border-gray-300 rounded bg-white flex items-center justify-center">{cartItem.quantity}</span>
+                <button
+                  onClick={() => addToCart(cartItem.productId, cartItem.size)}
+                  className="w-8 h-8 border border-gray-300 rounded hover:bg-gray-100 flex items-center justify-center text-lg font-bold"
+                >
+                  +
+                </button>
+              </div>
+              <p className="font-semibold">${product.new_price * cartItem.quantity}</p>
+              <img
+                src={remove_icon}
+                onClick={() => deleteFromCart(cartKey)}
+                alt="remove"
+                className="w-4 h-4 cursor-pointer hover:opacity-70"
+              />
+            </div>
+          );
         })}
       </div>
 
       {/* Mobile Card Layout */}
       <div className="lg:hidden space-y-4">
         <h2 className="text-xl font-semibold mb-4">Shopping Cart</h2>
-        {all_product.map((e) => {
-          if (cartItems[e.id] > 0) {
-            return (
-              <div key={e.id} className="bg-white border rounded-lg p-4 shadow-sm">
-                <div className="flex gap-4">
-                  <div className="w-20 h-20 bg-gray-100 rounded overflow-hidden flex-shrink-0">
-                    <img src={e.image} alt={e.name} className="w-full h-full object-contain" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-medium mb-2">{e.name}</h3>
-                    <p className="text-gray-600 mb-2">${e.new_price}</p>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm text-gray-500">Qty:</span>
-                        <div className="flex items-center gap-1">
-                          <button
-                            onClick={() => removeFromCart(e.id)}
-                            className="w-8 h-8 border border-gray-300 rounded hover:bg-gray-100 flex items-center justify-center text-lg font-bold"
-                          >
-                            -
-                          </button>
-                          <span className="w-12 h-8 border border-gray-300 rounded bg-white flex items-center justify-center text-sm">{cartItems[e.id]}</span>
-                          <button
-                            onClick={() => addToCart(e.id)}
-                            className="w-8 h-8 border border-gray-300 rounded hover:bg-gray-100 flex items-center justify-center text-lg font-bold"
-                          >
-                            +
-                          </button>
-                        </div>
+        {Object.keys(cartItems).length === 0 && (
+          <div className="text-center py-8">
+            <p className="text-gray-500">Your cart is empty</p>
+          </div>
+        )}
+        {Object.entries(cartItems).map(([cartKey, cartItem]) => {
+          const product = all_product.find(p => p.id === cartItem.productId);
+          if (!product) return null;
+
+          return (
+            <div key={cartKey} className="bg-white border rounded-lg p-4 shadow-sm">
+              <div className="flex gap-4">
+                <div className="w-20 h-20 bg-gray-100 rounded overflow-hidden flex-shrink-0">
+                  <img src={product.image} alt={product.name} className="w-full h-full object-contain" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-medium mb-1">{product.name}</h3>
+                  <p className="text-sm text-gray-500 mb-2">Size: {cartItem.size}</p>
+                  <p className="text-gray-600 mb-2">${product.new_price}</p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-gray-500">Qty:</span>
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={() => removeFromCart(cartKey)}
+                          className="w-8 h-8 border border-gray-300 rounded hover:bg-gray-100 flex items-center justify-center text-lg font-bold"
+                        >
+                          -
+                        </button>
+                        <span className="w-12 h-8 border border-gray-300 rounded bg-white flex items-center justify-center text-sm">{cartItem.quantity}</span>
+                        <button
+                          onClick={() => addToCart(cartItem.productId, cartItem.size)}
+                          className="w-8 h-8 border border-gray-300 rounded hover:bg-gray-100 flex items-center justify-center text-lg font-bold"
+                        >
+                          +
+                        </button>
                       </div>
-                      <div className="flex items-center gap-4">
-                        <p className="font-semibold">${e.new_price*cartItems[e.id]}</p>
-                        <img
-                          src={remove_icon}
-                          onClick={() => deleteFromCart(e.id)}
-                          alt="remove"
-                          className="w-4 h-4 cursor-pointer hover:opacity-70"
-                        />
-                      </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <p className="font-semibold">${product.new_price * cartItem.quantity}</p>
+                      <img
+                        src={remove_icon}
+                        onClick={() => deleteFromCart(cartKey)}
+                        alt="remove"
+                        className="w-4 h-4 cursor-pointer hover:opacity-70"
+                      />
                     </div>
                   </div>
                 </div>
               </div>
-            );
-          }
-          return null;
+            </div>
+          );
         })}
       </div>
 
