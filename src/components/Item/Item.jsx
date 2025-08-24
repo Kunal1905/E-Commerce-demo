@@ -1,22 +1,21 @@
 import React from 'react'
-import "./Item.css"
 import {Link} from "react-router-dom"
 
 const Item = (props) => {
   return (
-    <div className='item'>
-        <Link to={`/product/${props.id}`}><img onClick={window.scrollTo(0,0)} src={props.image} alt="" /></Link>
-        <p>{props.image}</p>
-        <div className='item-prices'>
-            <div className='item-price-new'>
+    <div className='group cursor-pointer transition-transform hover:scale-105 duration-300'>
+        <Link to={`/product/${props.id}`} onClick={() => window.scrollTo(0,0)}>
+          <img src={props.image} alt={props.name} className="w-full h-auto object-cover rounded-lg mb-3" />
+        </Link>
+        <p className="text-gray-800 font-medium mb-2 truncate">{props.name}</p>
+        <div className='flex items-center gap-4'>
+            <div className='text-gray-800 text-lg font-semibold'>
                 ${props.new_price}
             </div>
-        <div className='item-prices'>
-            <div className='item-price-old'>
+            <div className='text-gray-500 text-lg font-medium line-through'>
                 ${props.old_price}
             </div>
         </div>
-    </div>
     </div>
   )
 }
