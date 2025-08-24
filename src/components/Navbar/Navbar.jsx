@@ -49,7 +49,7 @@ function Navbar() {
         </Link>
         <Link to="/cart" className="relative">
           <img src={cart_icon} alt="cart" className="w-6 h-6" />
-          <div className='absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center'>0</div>
+          <div className='absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center'>{getTotalCartItems()}</div>
         </Link>
       </div>
 
