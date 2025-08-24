@@ -23,7 +23,9 @@ const CartItems = () => {
           if (cartItems[e.id] > 0) {
             return (
               <div key={e.id} className="grid grid-cols-6 gap-4 py-4 px-2 items-center border-b">
-                <img src={e.image} alt={e.name} className="w-16 h-16 object-cover rounded" />
+                <div className="w-16 h-16 bg-gray-100 rounded overflow-hidden">
+                  <img src={e.image} alt={e.name} className="w-full h-full object-contain" />
+                </div>
                 <p className="font-medium">{e.name}</p>
                 <p className="text-gray-600">${e.new_price}</p>
                 <button className="w-12 h-8 border border-gray-300 rounded text-center bg-white">{cartItems[e.id]}</button>
@@ -49,7 +51,9 @@ const CartItems = () => {
             return (
               <div key={e.id} className="bg-white border rounded-lg p-4 shadow-sm">
                 <div className="flex gap-4">
-                  <img src={e.image} alt={e.name} className="w-20 h-20 object-cover rounded" />
+                  <div className="w-20 h-20 bg-gray-100 rounded overflow-hidden flex-shrink-0">
+                    <img src={e.image} alt={e.name} className="w-full h-full object-contain" />
+                  </div>
                   <div className="flex-1">
                     <h3 className="font-medium mb-2">{e.name}</h3>
                     <p className="text-gray-600 mb-2">${e.new_price}</p>
