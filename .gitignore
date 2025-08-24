@@ -1,0 +1,15 @@
+# dependencies
+/node_modules
+
+# production build
+/build
+/dist
+
+# misc
+.DS_Store
+.env
+*.log
+
+# vscode/IDE
+.vscode/
+.idea/
