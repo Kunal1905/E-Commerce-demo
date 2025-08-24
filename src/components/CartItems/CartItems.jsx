@@ -3,7 +3,7 @@ import {ShopContext} from "../Context/ShopContext"
 import remove_icon from "../../Assets/Frontend_Assets/cart_cross_icon.png";
 
 const CartItems = () => {
-  const { getTotalCartAmount,all_product, cartItems, RemoveFromCart } = useContext(ShopContext);
+  const { getTotalCartAmount, all_product, cartItems, addToCart, removeFromCart, deleteFromCart } = useContext(ShopContext);
   return (
     <div className="px-4 md:px-8 py-6 max-w-7xl mx-auto">
       {/* Mobile: Card Layout, Desktop: Table Layout */}
@@ -28,11 +28,25 @@ const CartItems = () => {
                 </div>
                 <p className="font-medium">{e.name}</p>
                 <p className="text-gray-600">${e.new_price}</p>
-                <button className="w-12 h-8 border border-gray-300 rounded text-center bg-white">{cartItems[e.id]}</button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => removeFromCart(e.id)}
+                    className="w-8 h-8 border border-gray-300 rounded hover:bg-gray-100 flex items-center justify-center text-lg font-bold"
+                  >
+                    -
+                  </button>
+                  <span className="w-12 h-8 border border-gray-300 rounded bg-white flex items-center justify-center">{cartItems[e.id]}</span>
+                  <button
+                    onClick={() => addToCart(e.id)}
+                    className="w-8 h-8 border border-gray-300 rounded hover:bg-gray-100 flex items-center justify-center text-lg font-bold"
+                  >
+                    +
+                  </button>
+                </div>
                 <p className="font-semibold">${e.new_price*cartItems[e.id]}</p>
                 <img
                   src={remove_icon}
-                  onClick={() => RemoveFromCart(e.id)}
+                  onClick={() => deleteFromCart(e.id)}
                   alt="remove"
                   className="w-4 h-4 cursor-pointer hover:opacity-70"
                 />
@@ -60,13 +74,27 @@ const CartItems = () => {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <span className="text-sm text-gray-500">Qty:</span>
-                        <button className="w-12 h-8 border border-gray-300 rounded text-center bg-white">{cartItems[e.id]}</button>
+                        <div className="flex items-center gap-1">
+                          <button
+                            onClick={() => removeFromCart(e.id)}
+                            className="w-8 h-8 border border-gray-300 rounded hover:bg-gray-100 flex items-center justify-center text-lg font-bold"
+                          >
+                            -
+                          </button>
+                          <span className="w-12 h-8 border border-gray-300 rounded bg-white flex items-center justify-center text-sm">{cartItems[e.id]}</span>
+                          <button
+                            onClick={() => addToCart(e.id)}
+                            className="w-8 h-8 border border-gray-300 rounded hover:bg-gray-100 flex items-center justify-center text-lg font-bold"
+                          >
+                            +
+                          </button>
+                        </div>
                       </div>
                       <div className="flex items-center gap-4">
                         <p className="font-semibold">${e.new_price*cartItems[e.id]}</p>
                         <img
                           src={remove_icon}
-                          onClick={() => RemoveFromCart(e.id)}
+                          onClick={() => deleteFromCart(e.id)}
                           alt="remove"
                           className="w-4 h-4 cursor-pointer hover:opacity-70"
                         />
